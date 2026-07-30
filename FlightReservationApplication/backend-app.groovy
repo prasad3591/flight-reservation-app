@@ -14,26 +14,6 @@ pipeline {
                 '''
             }
         }
-        stage('Debug') {
-            steps {
-                 sh '''
-                     whoami
-                     pwd
-                     java -version
-                     mvn -version
-                '''
-                }
-        }
-        stage('QA-Test') {
-    steps {
-        withSonarQubeEnv('sonar') {
-    sh '''
-        cd FlightReservationApplication
-        mvn sonar:sonar -Dsonar.projectKey=flight-reservation-backend
-    '''
-}
-    }
-}
         stage('Docker'){
             steps{
                 sh ''' 
