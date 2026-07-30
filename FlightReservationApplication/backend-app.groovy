@@ -26,14 +26,12 @@ pipeline {
         }
         stage('QA-Test') {
     steps {
-        dir('FlightReservationApplication') {
-            withSonarQubeEnv('sonar') {
-                sh '''
-                    mvn clean verify sonar:sonar \
-                    -Dsonar.projectKey=flight-reservation-backend
-                '''
-            }
-        }
+        withSonarQubeEnv('sonar') {
+    sh '''
+        cd FlightReservationApplication
+        mvn sonar:sonar -Dsonar.projectKey=flight-reservation-backend
+    '''
+}
     }
 }
         stage('Docker'){
