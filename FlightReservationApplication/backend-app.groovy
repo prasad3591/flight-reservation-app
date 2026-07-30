@@ -15,15 +15,15 @@ pipeline {
             }
         }
         stage('QA-Test') {
-            steps {
-            withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar-token') {
+        steps {
+            withSonarQubeEnv('sonar') {
             sh '''
                 cd FlightReservationApplication
-                mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-                -Dsonar.projectKey=flight-reservation-backend
+                mvn clean verify sonar:sonar \
+                  -Dsonar.projectKey=flight-reservation-backend
             '''
             }
-            }
+          }
         }
         stage('Docker'){
             steps{
