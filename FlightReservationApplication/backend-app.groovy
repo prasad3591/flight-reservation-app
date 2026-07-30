@@ -14,6 +14,16 @@ pipeline {
                 '''
             }
         }
+        stage('Debug') {
+            steps {
+                 sh '''
+                     whoami
+                     pwd
+                     java -version
+                     mvn -version
+                '''
+                }
+        }
         stage('QA-Test') {
         steps {
             withSonarQubeEnv('sonar') {
